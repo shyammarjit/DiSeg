@@ -1,21 +1,22 @@
+## To add a new directory for conda envs.
 ```
-conda config --append envs_dirs /ssd_scratch/cvit/soumyajit/conda_envs # To add a new directory for conda envs.
+conda config --append envs_dirs /ssd_scratch/cvit/soumyajit/conda_envs
 ```
-
+## Create env in the new directory.
 ```
-conda create --prefix /ssd_scratch/cvit/soumyajit/conda_envs/SegFormer python=3.7 -y # Create env in the new directory.
+conda create --prefix /ssd_scratch/cvit/soumyajit/conda_envs/SegFormer python=3.7 -y
 ```
-
+## conda env actiavte
 ```
 conda activate SegFormer
 ```
-
+## pytorch install
 ```
 conda install pytorch=1.6.0 torchvision cudatoolkit=10.1 -c pytorch -y
 ```
 
+## Not sure if needed.
 ```
-**Not sure if needed**.<br/>
 pip install mmcv-full -f https://download.openmmlab.com/mmcv/dist/cu101/torch1.5.0/index.html
 git clone https://github.com/open-mmlab/mmsegmentation.git
 cd mmsegmentation
