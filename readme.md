@@ -20,10 +20,10 @@ conda install pytorch=1.6.0 torchvision cudatoolkit=10.1 -c pytorch -y
 pip install mmcv-full -f https://download.openmmlab.com/mmcv/dist/cu101/torch1.5.0/index.html
 git clone https://github.com/open-mmlab/mmsegmentation.git
 cd mmsegmentation
+pip install -e .
 ```
 
 ```
-pip install -e .
 pip install timm==0.3.2
 pip install gdown
 pip install mmcv-full==1.2.7
