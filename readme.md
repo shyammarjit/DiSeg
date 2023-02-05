@@ -25,6 +25,7 @@ pip install -e .
 
 ```
 pip install timm==0.3.2
+pip install opencv-python
 pip install gdown
 pip install mmcv-full==1.2.7
 pip install IPython
