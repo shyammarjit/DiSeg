@@ -15,7 +15,7 @@ conda activate SegFormer
 conda install pytorch=1.6.0 torchvision cudatoolkit=10.1 -c pytorch -y
 ```
 
-## Not sure if needed.
+**Not sure if needed.**
 ```
 pip install mmcv-full -f https://download.openmmlab.com/mmcv/dist/cu101/torch1.5.0/index.html
 git clone https://github.com/open-mmlab/mmsegmentation.git
