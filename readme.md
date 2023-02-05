@@ -24,12 +24,13 @@ pip install -e .
 ```
 
 ```
+pip install torchvision==0.8.2
 pip install timm==0.3.2
-pip install opencv-python
-pip install gdown
 pip install mmcv-full==1.2.7
+pip install opencv-python==4.5.1.48
 pip install IPython
 pip install attr
+pip install gdown
 ```
 
 ```
