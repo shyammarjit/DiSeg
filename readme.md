@@ -1,4 +1,4 @@
-## To add a new directory for conda envs.
+<!---## To add a new directory for conda envs.
 ```
 conda config --append envs_dirs /ssd_scratch/cvit/soumyajit/conda_envs
 ```
@@ -60,8 +60,8 @@ cd ..
 python tools/test.py local_configs/segformer/B1/segformer.b1.512x512.ade.160k.py /ssd_scratch/cvit/soumyajit/mmsegmentation/SegFormer/Checkpoints/segformer.b0.512x512.ade.160k.pth
 
 ```
+-->
 
-
-
-
-
+```
+conda install pytorch==1.6.0 torchvision==0.7.0 cudatoolkit=10.1.168 -c pytorch
+```
