@@ -283,12 +283,14 @@ class SegFormer(nn.Module):
         features = self.encoder(x, self.t)
 
         # Decoder
-        features = self.decoder(features[::-1], self.t) # pass in reverse order
+        #features = self.decoder(features[::-1], self.t) # pass in reverse order
 
         # Reduce the channel dimention
         for i in range(len(features)):
             while(features[i].shape[-1] is not x.shape[-1]):
                 features[i] = self.perform_upsampling(features[i])
+                time_emb = time_emb_layer(features[i], self.t)
+                features[i] = features[i] + time_emb
             if(features[i].shape[-1] == x.shape[-1]):
                 # reduce the no of channels
                 in_channels, out_channels = x.shape[-1], x.shape[-1]//4
@@ -297,6 +299,8 @@ class SegFormer(nn.Module):
                     DoubleConv(in_channels, out_channels, in_channels // 2),
                 )
                 features[i] = conv(features[i])
+                features[i] = features[i] + time_emb
+
 
         if(self.args.segmentation):
             # perfrom segmentation, this itself will stack all feature maps to tensor object
@@ -305,10 +309,10 @@ class SegFormer(nn.Module):
             # stack all feature map to tensor object
             temp = features[1:]
             features = torch.cat(temp, dim=1)
-
+        print(features.shape)
         # make N feature maps to 3 channels
         org_height = features.shape[1]
         output = nn.Conv2d(org_height, self.args.out_channels, kernel_size=1, device = self.args.device)
         segmentation = output(features)
-        #print('segmentation', segmentation.shape)
+        print('segmentation', segmentation.shape)
         return segmentation
