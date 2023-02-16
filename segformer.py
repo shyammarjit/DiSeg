@@ -3,7 +3,7 @@ from einops import rearrange
 from torch import nn
 from modules import DoubleConv
 from modules import Up as upsampling
-
+# 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
 class LayerNorm2d(nn.LayerNorm):
     def forward(self, x):
         x = rearrange(x, "b c h w -> b h w c")
@@ -92,7 +92,6 @@ class SegFormerEncoderBlock(nn.Sequential):
         drop_path_prob: float = .0,
         device: str = 'cuda',
     ):
-        print(device)
         super().__init__(
             ResidualAdd(
                 nn.Sequential(
@@ -125,7 +124,6 @@ class SegFormerEncoderStage(nn.Sequential):
         mlp_expansion: int = 4,
         device = "cuda",
     ):
-        print(device)
         super().__init__()
         self.overlap_patch_merge = OverlapPatchMerging(
             in_channels, out_channels, patch_size, overlap_size,
@@ -171,7 +169,6 @@ class SegFormerEncoder(nn.Module):
         mlp_expansions = args.mlp_expansions
         drop_prob = args.drop_prob
         self.device = args.device
-        print(self.device)
         super().__init__()
         # create drop paths probabilities (one for each stage's block)
         drop_probs =  [x.item() for x in torch.linspace(0, drop_prob, sum(depths))]
@@ -283,7 +280,7 @@ class SegFormer(nn.Module):
         features = self.encoder(x, self.t)
 
         # Decoder
-        #features = self.decoder(features[::-1], self.t) # pass in reverse order
+        features = self.decoder(features[::-1], self.t) # pass in reverse order
 
         # Reduce the channel dimention
         for i in range(len(features)):
@@ -299,6 +296,7 @@ class SegFormer(nn.Module):
                     DoubleConv(in_channels, out_channels, in_channels // 2),
                 )
                 features[i] = conv(features[i])
+                time_emb = time_emb_layer(features[i], self.t)
                 features[i] = features[i] + time_emb
 
 
@@ -309,10 +307,10 @@ class SegFormer(nn.Module):
             # stack all feature map to tensor object
             temp = features[1:]
             features = torch.cat(temp, dim=1)
-        print(features.shape)
+        #print(features.shape)
         # make N feature maps to 3 channels
         org_height = features.shape[1]
         output = nn.Conv2d(org_height, self.args.out_channels, kernel_size=1, device = self.args.device)
         segmentation = output(features)
-        print('segmentation', segmentation.shape)
+        #print('segmentation', segmentation.shape)
         return segmentation
