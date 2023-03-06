@@ -1,5 +1,6 @@
-conda env export > environment_droplet.yml
-conda env create -f environment.yml
+# conda env export > environment_droplet.yml
+
+# conda env create -f environment.yml
 
 <!-- ## To add a new directory for conda envs. (only once)
 ```
