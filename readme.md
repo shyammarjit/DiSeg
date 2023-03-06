@@ -1,4 +1,7 @@
-## To add a new directory for conda envs. (only once)
+conda env export > environment_droplet.yml
+conda env create -f environment.yml
+
+<!-- ## To add a new directory for conda envs. (only once)
 ```
 conda config --append envs_dirs /ssd_scratch/cvit/soumyajit/conda_envs
 ```
@@ -59,4 +62,4 @@ cd ..
 ```
 python tools/test.py local_configs/segformer/B1/segformer.b1.512x512.ade.160k.py /ssd_scratch/cvit/soumyajit/mmsegmentation/SegFormer/Checkpoints/segformer.b0.512x512.ade.160k.pth
 
-```
+``` -->
